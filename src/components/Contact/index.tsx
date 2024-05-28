@@ -1,12 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Map from "./Map";
 
 const Contact = () => {
 
-  const handleSubmit = (e:any) => {
-    e.preventDefault()
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  })
+
+  const handleData = (e) => {
+    const { name, value } = e.target
+    setData({
+      ...data,
+      [name]: value
+    })
   }
+
+  useEffect(() => {
+    setData({
+      name: '',
+      email: '',
+      message: ''
+    })
+  }, [])
 
   return (
     <section id="contact" className="overflow-hidden py-16 md:py-20 lg:py-28">
@@ -24,7 +43,7 @@ const Contact = () => {
               <p className="mb-12 text-base font-medium text-body-color">
                 Envíame tu consulta y me voy a contactar con vos.
               </p>
-              <form action='https://getform.io/f/5ebe45c0-9173-4c41-85d6-8721825887fd' method='POST' onSubmit={handleSubmit}>
+              <form action='https://getform.io/f/5ebe45c0-9173-4c41-85d6-8721825887fd' method='POST' >
                 <div className="-mx-4 flex flex-wrap">
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
@@ -37,6 +56,8 @@ const Contact = () => {
                       <input
                         name="name"
                         type="text"
+                        value={data.name}
+                        onChange={handleData}
                         placeholder="Escribí tu nombre"
                         className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
@@ -53,6 +74,8 @@ const Contact = () => {
                       <input
                         name="email"
                         type="email"
+                        value={data.email}
+                        onChange={handleData}
                         placeholder="Escribí tu email"
                         className="border-stroke w-full rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
                       />
@@ -68,6 +91,8 @@ const Contact = () => {
                       </label>
                       <textarea
                         name="message"
+                        value={data.message}
+                        onChange={handleData}
                         rows={5}
                         placeholder="Escribí tu mensaje"
                         className="border-stroke w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-primary dark:border-transparent dark:bg-[#2C303B] dark:text-body-color-dark dark:shadow-two dark:focus:border-primary dark:focus:shadow-none"
